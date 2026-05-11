@@ -48,8 +48,7 @@ export class AuthService {
       data: [
         {
 
-          firtsname:username,
-          lastname:username,
+          username,
           email,
           password,
         }
