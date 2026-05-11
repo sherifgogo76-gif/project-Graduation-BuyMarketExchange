@@ -2,7 +2,7 @@ import z, { email } from "zod";
 
 
 export const SignupVildation = z.strictObject({
-    name: z.string().min(2).max(52),
+    username: z.string().min(2).max(52),
     email: z.email(),
     password: z.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/),
     confirmpassword: z.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
