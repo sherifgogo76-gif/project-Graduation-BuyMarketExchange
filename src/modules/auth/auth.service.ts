@@ -51,7 +51,7 @@ export class AuthService {
           firtsname:username,
           lastname:username,
           email,
-          password
+          password,
         }
       ]
     }
