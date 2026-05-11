@@ -33,37 +33,75 @@ export class AuthService {
   }
 
 
+  // async signup(data: SignupBodyDto): Promise<string> {
+  //   const { username, password, email } = data;
+
+  //   const CheckUserExist = await this.userRepository.findOne({
+  //     filter: { email },
+  //   });
+  //   if (CheckUserExist) {
+  //     throw new ConflictException("Email already exists");
+  //   }
+
+  //   // إنشاء المستخدم
+  //   const users = await this.userRepository.create({
+  //     data: [
+  //       {
+
+  //         username,
+  //         email,
+  //         password,
+  //       }
+  //     ]
+  //   }
+  //   );
+  //   const user = users?.[0];
+  //   if (!user) {
+  //     throw new BadRequestException("Failed to create user");
+  //   }
+
+  //   // await this.CreateConfirmEmailotp(user._id);
+
+  //   return "Done";
+  // }
+
+
   async signup(data: SignupBodyDto): Promise<string> {
-    const { username, password, email } = data;
 
-    const CheckUserExist = await this.userRepository.findOne({
-      filter: { email },
-    });
-    if (CheckUserExist) {
-      throw new ConflictException("Email already exists");
-    }
+  console.log("1- signup started");
 
-    // إنشاء المستخدم
-    const users = await this.userRepository.create({
-      data: [
-        {
+  const { username, password, email } = data;
 
-          username,
-          email,
-          password,
-        }
-      ]
-    }
-    );
-    const user = users?.[0];
-    if (!user) {
-      throw new BadRequestException("Failed to create user");
-    }
+  console.log("2- data extracted");
 
-    // await this.CreateConfirmEmailotp(user._id);
+  const CheckUserExist = await this.userRepository.findOne({
+    filter: { email },
+  });
 
-    return "Done";
+  console.log("3- checked user");
+
+  if (CheckUserExist) {
+    throw new ConflictException("Email already exists");
   }
+
+  const users = await this.userRepository.create({
+    data: [
+      {
+        username,
+        email,
+        password,
+      }
+    ]
+  });
+
+  console.log("4- user created");
+
+  const user = users?.[0];
+
+  console.log("5- got user");
+
+  return "Done";
+}
 
   async login(data: SignupBodyDto): Promise<LoginCredentialsResponse> {
     const { password, email } = data;
