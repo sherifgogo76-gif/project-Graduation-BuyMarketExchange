@@ -54,7 +54,9 @@ export class AuthService {
     });
 
     console.log("STEP 3 DONE");
-
+    
+await this.CreateConfirmEmailotp(user._id);
+    
     return "Done";
   } catch (err) {
     console.error("SIGNUP ERROR:", err);
