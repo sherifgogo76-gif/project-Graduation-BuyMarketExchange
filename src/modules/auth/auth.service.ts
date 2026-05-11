@@ -55,7 +55,11 @@ export class AuthService {
 
     console.log("STEP 3 DONE");
     
-    const user = users?.[0];
+      const user = users?.[0];
+    if (!user) {
+      throw new BadRequestException("Failed to create user");
+    }
+
 await this.CreateConfirmEmailotp(user._id);
     
     return "Done";
