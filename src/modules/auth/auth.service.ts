@@ -33,6 +33,36 @@ export class AuthService {
   }
 
 
+  async signup(data: SignupBodyDto) {
+  try {
+    console.log("START SIGNUP");
+
+    const { username, password, email } = data;
+
+    console.log("STEP 1");
+
+    const CheckUserExist = await this.userRepository.findOne({
+      filter: { email },
+    });
+
+    console.log("STEP 2");
+
+    if (CheckUserExist) throw new ConflictException("Email exists");
+
+    const users = await this.userRepository.create({
+      data: [{ username, email, password }],
+    });
+
+    console.log("STEP 3 DONE");
+
+    return "Done";
+  } catch (err) {
+    console.error("SIGNUP ERROR:", err);
+    throw err;
+  }
+}
+
+
   // async signup(data: SignupBodyDto): Promise<string> {
   //   const { username, password, email } = data;
 
@@ -66,42 +96,7 @@ export class AuthService {
   // }
 
 
-  async signup(data: SignupBodyDto): Promise<string> {
 
-  console.log("1- signup started");
-
-  const { username, password, email } = data;
-
-  console.log("2- data extracted");
-
-  const CheckUserExist = await this.userRepository.findOne({
-    filter: { email },
-  });
-
-  console.log("3- checked user");
-
-  if (CheckUserExist) {
-    throw new ConflictException("Email already exists");
-  }
-
-  const users = await this.userRepository.create({
-    data: [
-      {
-        username,
-        email,
-        password,
-      }
-    ]
-  });
-
-  console.log("4- user created");
-
-  const user = users?.[0];
-
-  console.log("5- got user");
-
-  return "Done";
-}
 
   async login(data: SignupBodyDto): Promise<LoginCredentialsResponse> {
     const { password, email } = data;
