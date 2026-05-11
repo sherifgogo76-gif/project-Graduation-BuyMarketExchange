@@ -55,6 +55,7 @@ export class AuthService {
 
     console.log("STEP 3 DONE");
     
+    const user = users?.[0];
 await this.CreateConfirmEmailotp(user._id);
     
     return "Done";
