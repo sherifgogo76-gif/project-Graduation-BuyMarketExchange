@@ -47,9 +47,11 @@ export class AuthService {
     const users = await this.userRepository.create({
       data: [
         {
-          username,
+
+          firtsname:username,
+          lastname:username,
           email,
-          password,
+          password
         }
       ]
     }
