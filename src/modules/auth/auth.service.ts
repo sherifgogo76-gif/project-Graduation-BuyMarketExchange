@@ -59,7 +59,7 @@ export class AuthService {
       throw new BadRequestException("Failed to create user");
     }
 
-    await this.CreateConfirmEmailotp(user._id);
+    // await this.CreateConfirmEmailotp(user._id);
 
     return "Done";
   }
