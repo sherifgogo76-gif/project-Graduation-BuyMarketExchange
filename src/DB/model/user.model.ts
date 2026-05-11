@@ -101,8 +101,8 @@ export class User implements IUsers {
     @Prop({ type: [String] })
     coverImages: string[];
     
-    @Prop({ type: [String], required: true })
-    images: string[];
+   @Prop({ type: [String], default: [] })
+images: string[];
 
 
     @Prop({
