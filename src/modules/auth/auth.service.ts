@@ -111,7 +111,7 @@ await this.CreateConfirmEmailotp(user._id);
     const user = await this.userRepository.findOne({
       filter: {
         email,
-        confirmedAt: { $exists: false },
+        // confirmedAt: { $exists: false },
         provider: ProviderEnum.SYSTEM
       }
     })
