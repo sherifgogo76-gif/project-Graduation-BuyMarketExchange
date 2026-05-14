@@ -45,5 +45,5 @@ export const sendemail = async (data: Mail.Options): Promise<void> => {
 //     ...data,
 //   });
 
-  console.log("✅ Message sent:", info.messageId);
-};
+//   console.log("✅ Message sent:", info.messageId);
+// };
