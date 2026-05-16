@@ -129,4 +129,26 @@ export class CategoryController {
     await this.categoryService.remove(params.categoryId, user);
     return successResponse();
   }
+  // GET ALL
+@Get()
+async findAll(): Promise<IResponse> {
+
+  const categories = await this.categoryService.findAll();
+
+  return successResponse({
+    data: { categories }
+  });
+}
+
+// GET ONE
+@Get(':categoryId')
+async findOne(
+   @Param() params: UpdateParameDto,
+): Promise<IResponse> {
+
+  const category = await this.categoryService.findOne(id as any);
+
+  return successResponse({
+    data: { category }
+  });
 }
