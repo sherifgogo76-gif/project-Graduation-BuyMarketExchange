@@ -129,7 +129,7 @@ export class CategoryController {
     await this.categoryService.remove(params.categoryId, user);
     return successResponse();
   }
-  // GET ALL
+//   GET ALL
 // @Get()
 // async findAll(): Promise<IResponse> {
 
@@ -150,5 +150,5 @@ export class CategoryController {
 
 //   return successResponse({
 //     data: { category }
-  });
+//   });
 }
