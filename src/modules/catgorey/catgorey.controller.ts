@@ -146,7 +146,7 @@ async findOne(
    @Param() params: UpdateParameDto,
 ): Promise<IResponse> {
 
-  const category = await this.categoryService.findOne(id as any);
+  const category = await this.categoryService.findOne(params.categoryId);
 
   return successResponse({
     data: { category }
