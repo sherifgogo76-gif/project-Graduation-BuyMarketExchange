@@ -5,8 +5,8 @@ import { OtpDocument } from "src/DB/model/otp.model";
 export interface IUsers {
     _id?: Types.ObjectId;
 
-    firstname: string;
-    lastname: string;
+    firstname?: string;
+    lastname?: string;
 
     username?: string;
 

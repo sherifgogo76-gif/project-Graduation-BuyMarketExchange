@@ -19,7 +19,7 @@ import { MarketDataModule } from './modules/market-data/market-data.module';
       isGlobal: true,
     }),
 
-    MongooseModule.forRoot(process.env.DB_URI as string, { serverSelectionTimeoutMS: 30000 }),
+    MongooseModule.forRoot(process.env.DB_URI as string, { serverSelectionTimeoutMS: 5000}),
     AuthModule,
     UserModule,
     ProductModule,

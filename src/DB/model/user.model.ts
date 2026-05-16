@@ -17,7 +17,7 @@ export class User implements IUsers {
 
     @Prop({
         type: String,
-        required: true,
+        required: false,
         minlength: 2,
         maxlength: 25,
         trim: true,
@@ -26,7 +26,7 @@ export class User implements IUsers {
 
     @Prop({
         type: String,
-        required: true,
+        required: false,
         minlength: 2,
         maxlength: 25,
         trim: true,
@@ -101,8 +101,8 @@ export class User implements IUsers {
     @Prop({ type: [String] })
     coverImages: string[];
     
-    @Prop({ type: [String], required: true })
-    images: string[];
+   @Prop({ type: [String], default: [] })
+images: string[];
 
 
     @Prop({

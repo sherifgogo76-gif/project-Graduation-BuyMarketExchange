@@ -33,36 +33,77 @@ export class AuthService {
   }
 
 
-  async signup(data: SignupBodyDto): Promise<string> {
+  async signup(data: SignupBodyDto) {
+  try {
+    console.log("START SIGNUP");
+
     const { username, password, email } = data;
+
+    console.log("STEP 1");
 
     const CheckUserExist = await this.userRepository.findOne({
       filter: { email },
     });
-    if (CheckUserExist) {
-      throw new ConflictException("Email already exists");
-    }
 
-    // إنشاء المستخدم
+    console.log("STEP 2");
+
+    if (CheckUserExist) throw new ConflictException("Email exists");
+
     const users = await this.userRepository.create({
-      data: [
-        {
-          username,
-          email,
-          password,
-        }
-      ]
-    }
-    );
-    const user = users?.[0];
+      data: [{ username, email, password }],
+    });
+
+    console.log("STEP 3 DONE");
+    
+      const user = users?.[0];
     if (!user) {
       throw new BadRequestException("Failed to create user");
     }
 
-    // await this.CreateConfirmEmailotp(user._id);
+    await this.CreateConfirmEmailotp(user._id);
 
     return "Done";
+  } catch (err) {
+    console.error("SIGNUP ERROR:", err);
+    throw err;
   }
+}
+
+
+  // async signup(data: SignupBodyDto): Promise<string> {
+  //   const { username, password, email } = data;
+
+  //   const CheckUserExist = await this.userRepository.findOne({
+  //     filter: { email },
+  //   });
+  //   if (CheckUserExist) {
+  //     throw new ConflictException("Email already exists");
+  //   }
+
+  //   // إنشاء المستخدم
+  //   const users = await this.userRepository.create({
+  //     data: [
+  //       {
+
+  //         username,
+  //         email,
+  //         password,
+  //       }
+  //     ]
+  //   }
+  //   );
+  //   const user = users?.[0];
+  //   if (!user) {
+  //     throw new BadRequestException("Failed to create user");
+  //   }
+
+  //   // await this.CreateConfirmEmailotp(user._id);
+
+  //   return "Done";
+  // }
+
+
+
 
   async login(data: SignupBodyDto): Promise<LoginCredentialsResponse> {
     const { password, email } = data;
@@ -70,7 +111,7 @@ export class AuthService {
     const user = await this.userRepository.findOne({
       filter: {
         email,
-        confirmedAt: { $exists: true },
+        // confirmedAt: { $exists: false },
         provider: ProviderEnum.SYSTEM
       }
     })
