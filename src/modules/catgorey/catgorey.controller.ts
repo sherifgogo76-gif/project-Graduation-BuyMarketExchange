@@ -129,26 +129,27 @@ export class CategoryController {
     await this.categoryService.remove(params.categoryId, user);
     return successResponse();
   }
-//   GET ALL
-// @Get()
-// async findAll(): Promise<IResponse> {
+// GET ALL
+@Get()
+async findAll(): Promise<IResponse> {
 
-//   const categories = await this.categoryService.findAll();
+  const categories = await this.categoryService.findAll();
 
-//   return successResponse({
-//     data: { categories }
-//   });
-// }
+  return successResponse({
+    data: { categories }
+  });
+}
 
-// // GET ONE
-// @Get(':categoryId')
-// async findOne(
-//    @Param() params: UpdateParameDto,
-// ): Promise<IResponse> {
+// GET ONE
+@Get(':categoryId')
+async findOne(
+  @Param() params: UpdateParameDto,
+): Promise<IResponse> {
 
-//   const category = await this.categoryService.findOne(params.categoryId);
+  const category = await this.categoryService.findOne(params.categoryId);
 
-//   return successResponse({
-//     data: { category }
-//   });
+  return successResponse({
+    data: { category }
+  });
+}
 }
