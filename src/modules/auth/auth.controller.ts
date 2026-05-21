@@ -42,7 +42,7 @@ export class AuthController {
       return successResponse()
   }
  @Post('forget-password')
-async forgetPassword(@Body() body: ForgetPasswordDto):Promise<string> {
+async forgetPassword(@Body() body: ForgetPasswordDto):Promise<IResponse> {
    console.log(body); 
    await this.authService.forgetPassword(body);
      return successResponse()
