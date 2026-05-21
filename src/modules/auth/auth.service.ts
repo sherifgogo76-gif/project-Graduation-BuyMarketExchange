@@ -1,5 +1,5 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { ConfirmEamilBodyDto, ResendConfirmEamilBodyDto, SignupBodyDto } from './dto/signup.dto';
+import { ConfirmEamilBodyDto, ResendConfirmEamilBodyDto, SignupBodyDto ,ForgetPasswordDto} from './dto/signup.dto';
 import { UserRepository } from 'src/DB/repository/user.repository';
 import { OtpRepository } from 'src/DB/repository/otp.repository';
 import { generateNumberOtp } from 'src/common/otp';
