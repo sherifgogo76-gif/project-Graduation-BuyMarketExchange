@@ -179,5 +179,23 @@ export class AuthService {
 
     return "Done";
 }
+  async forgetPassword(data: ForgetPasswordDto): Promise<string> {
+
+    const { email, password } = data;
+
+    const user = await this.userRepository.findOne({
+        filter: { email }
+    });
+
+    if (!user) {
+        throw new NotFoundException("User not found");
+    }
+
+    user.password = password;
+
+    await user.save();
+
+    return "Password changed successfully";
+}
 
 }
