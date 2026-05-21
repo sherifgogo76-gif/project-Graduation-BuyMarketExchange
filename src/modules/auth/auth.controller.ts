@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Patch } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ConfirmEamilBodyDto, ResendConfirmEamilBodyDto, SignupBodyDto } from './dto/signup.dto';
+import { ConfirmEamilBodyDto, ResendConfirmEamilBodyDto, SignupBodyDto,ForgetPasswordDto } from './dto/signup.dto';
 import { successResponse } from 'src/common/response';
 import { IResponse } from 'src/common';
 import { LoginResponse } from './entites/auth.entity';
@@ -41,5 +41,11 @@ export class AuthController {
       await this.authService.resendconfirmEmail(body);
       return successResponse()
   }
+ @Post('forget-password')
+async forgetPassword(@Body() body: ForgetPasswordDto):Promise<string> {
+   console.log(body); 
+   await this.authService.forgetPassword(body);
+     return successResponse()
+}
 
 }
