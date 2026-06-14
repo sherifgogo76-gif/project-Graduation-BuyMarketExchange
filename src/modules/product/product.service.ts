@@ -315,12 +315,14 @@ export class ProductService {
 
 
 
+// GET ALL PRODUCTS
   findAll() {
-    return `This action returns all product`;
+    return this.productRepository.find({ filter: {} });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  // GET ONE PRODUCT
+  findOne(id: Types.ObjectId) {
+    return this.productRepository.findOne({ filter: { _id: id } });
   }
 
 
