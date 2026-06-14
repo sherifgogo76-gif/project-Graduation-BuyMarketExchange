@@ -71,7 +71,7 @@ export class ProductService {
   //   return product[0];
   // }
 
-  async create(
+   async create(
     createProductDto: CreateProductDto,
     files: Express.Multer.File[],
     user: UserDocument
@@ -118,8 +118,6 @@ export class ProductService {
     }
   
     const createdProduct = product[0];
-  
-    // ✅ تحليل المنتج باستخدام AI
     let aiResult: any = null;
     try {
       aiResult = await this.aiService.analyzeProduct({
@@ -136,9 +134,13 @@ export class ProductService {
         data: [
           {
             productId: createdProduct._id,
-            averagePrice: aiResult.predictedPrice,
-            minPrice: aiResult.minPrice,
-            maxPrice: aiResult.maxPrice,
+            // averagePrice: aiResult.predictedPrice,
+            // minPrice: aiResult.minPrice,
+            // maxPrice: aiResult.maxPrice,
+            // createdBy: user._id
+            averagePrice: aiResult.predictedPrice || aiResult.averagePrice || originalprice, 
+            minPrice: aiResult.minPrice || originalprice * 0.8,
+            maxPrice: aiResult.maxPrice || originalprice * 1.2,
             createdBy: user._id
           }
         ]
@@ -154,8 +156,6 @@ export class ProductService {
     // ✅ إعادة المنتج والنتيجة من AI
     return { product: createdProduct, aiResult };
   }
-
-
 
 
   async update(
