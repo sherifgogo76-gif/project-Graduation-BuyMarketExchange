@@ -204,7 +204,7 @@ export class CategoryService {
   }
 
   // GET ALL
-  findAll() {
+  async findAll() {
    return (await this.categoryRepository.find({ filter: { paranoid: false } })) as CatgoreyDocument[];
   }
 
