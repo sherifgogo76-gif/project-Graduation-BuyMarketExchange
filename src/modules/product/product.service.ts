@@ -317,7 +317,7 @@ export class ProductService {
 
 // GET ALL PRODUCTS
   findAll() {
-    return this.productRepository.find({ filter: {} });
+    return (await this.productRepository.find({ filter: { paranoid: false } })) as ProductDocument[];
   }
 
   // GET ONE PRODUCT
