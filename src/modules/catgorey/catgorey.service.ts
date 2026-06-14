@@ -205,7 +205,7 @@ export class CategoryService {
 
   // GET ALL
   findAll() {
-    return this.categoryRepository.find({});
+   return (await this.categoryRepository.find({ filter: { paranoid: false } })) as CatgoreyDocument[];
   }
 
   // GET ONE
