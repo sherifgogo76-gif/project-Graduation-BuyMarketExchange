@@ -14,6 +14,6 @@ export class UpdateParameDto {
     @IsMongoId()
     productId: Types.ObjectId
     
-    @IsMongoId()
-    category: Types.ObjectId
+    // @IsMongoId()
+    // category: Types.ObjectId
 }
