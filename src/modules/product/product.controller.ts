@@ -118,15 +118,29 @@ export class ProductController {
     return successResponse();
   }
 
+// GET ALL PRODUCTS
   @Get()
-  findAll() {
-    return this.productService.findAll();
+  async findAll(): Promise<IResponse> {
+    const products = await this.productService.findAll();
+
+    return successResponse({
+      data: { products }
+    });
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productService.findOne(+id);
+  // GET ONE PRODUCT
+  @Get(':productId')
+  async findOne(
+    @Param() params: UpdateParameDto,
+  ): Promise<IResponse> {
+    const product = await this.productService.findOne(params.productId);
+
+    return successResponse({
+      data: { product }
+    });
   }
+
+
 
 
 
