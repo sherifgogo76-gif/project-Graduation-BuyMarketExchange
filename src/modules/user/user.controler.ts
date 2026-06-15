@@ -12,34 +12,30 @@ import { successResponse } from "src/common/response";
 import { endpoint } from "./authoraztion";
 import { UpdateParameDto } from "./dto/update-user.dto";
 
-
-
 @Controller("user")
-
 export class UserController {
     constructor(
         private readonly userService: UserService
     ) { }
 
- // GET ALL USERS
-  @Get()
-  async findAll(): Promise<IResponse> {
-    const users = await this.userService.findAll();
-
-    return successResponse({ data: { users } });
-  }
-
     @Auth([RoleEnum.admin, RoleEnum.user])
     @Get()
-    profile(@GetUser() user: UserDocument): { message: string } {
+    profile(@GetUser() user: UserDocument): { message: string, data: { user: UserDocument } } {
         console.log({ user });
-        return { message: "done" }
+        return { message: "done", data: { user } }
     }
 
+    // 2️⃣ [GET ALL USERS] تم تحديد صلاحية الـ Admin لها فقط عشان الـ NestJS يفرق بينها وبين الـ Profile
+    @Auth([RoleEnum.admin])
+    @Get()
+    async findAll(): Promise<IResponse> {
+        const users = await this.userService.findAll();
+        return successResponse({
+            data: { users }
+        });
+    }
 
-
-
-
+    // 3️⃣ [PROFILE IMAGE]
     @UseInterceptors(FileInterceptor(
         'image',
         cloudFiledUpload({
@@ -56,11 +52,9 @@ export class UserController {
         console.log({ file });
         const profile = await this.userService.profileimage(file, user)
         return successResponse<ProfileResponse>({ message: 'done', data: { profile } })
-
     }
 
-
-
+    // 4️⃣ [COVER IMAGE]
     @UseInterceptors(FilesInterceptor(
         'images',
         2,
@@ -76,18 +70,15 @@ export class UserController {
         @GetUser() user: UserDocument,
         @UploadedFiles() files: Express.Multer.File[]
     ): Promise<IResponse<ProfileResponse>> {
-
         console.log({ files });
-
         const profile = await this.userService.coverimage(files, user);
-
         return successResponse<ProfileResponse>({ message: 'done', data: { profile } });
     }
 
+    // 5️⃣ [FREEZE USER]
     @Auth(endpoint.create)
     @Delete(':userId/freeze')
     async freeze(
-
         @Param() params: UpdateParameDto,
         @GetUser() user: UserDocument
     ): Promise<IResponse> {
@@ -95,7 +86,7 @@ export class UserController {
         return successResponse();
     }
 
-
+    // 6️⃣ [RESTORE USER]
     @Auth(endpoint.create)
     @Get(':userId/restore')
     async restore(
@@ -106,7 +97,7 @@ export class UserController {
         return successResponse();
     }
 
-
+    // 7️⃣ [DELETE USER]
     @Auth(endpoint.create)
     @Delete(':userId')
     async remove(
@@ -117,22 +108,14 @@ export class UserController {
         return successResponse();
     }
 
- 
 
-  // GET ONE USER
-  @Get(':userId')
-  async findOne(
-    @Param() params: UpdateParameDto, 
-  ): Promise<IResponse> {
-    const user = await this.userService.findOne(params.userId);
-
-    return successResponse({
-      data: { user }
-    });
-  }
-
-
-
-
-
-} 
+    @Get(':userId')
+    async findOne(
+        @Param() params: UpdateParameDto, 
+    ): Promise<IResponse> {
+        const user = await this.userService.findOne(params.userId);
+        return successResponse({
+            data: { user }
+        });
+    }
+}
