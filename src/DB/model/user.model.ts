@@ -111,6 +111,12 @@ images: string[];
     })
     confirmedAt: Date;
 
+     @Prop({ type: Date })
+    freezedAt?: Date;
+
+    @Prop({ type: Date })
+    restoredAt?: Date;
+
 
     @Prop({
         type: Date,
