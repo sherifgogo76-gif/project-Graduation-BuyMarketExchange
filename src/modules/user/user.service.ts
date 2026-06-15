@@ -103,6 +103,16 @@ export class UserService {
        return "done";
      }
 
+    // GET ALL USERS
+  async findAll(): Promise<UserDocument[]> {
+    return (await this.userRepository.find({ filter: { paranoid: false } })) as UserDocument[];
+  }
+
+  // GET ONE USER
+  findOne(id: Types.ObjectId) {
+    return this.userRepository.findOne({ filter: { _id: id } });
+  }
+
 
 }
 
