@@ -41,14 +41,3 @@ export class SignupBodyDto extends LoginBodyDto {
     confirmpassword: string
 
 }
-export class ForgetPasswordDto extends ResendConfirmEamilBodyDto {
-
-    @IsStrongPassword()
-    password: string;
-
-    @ValidateIf((data: ForgetPasswordDto) => {
-        return Boolean(data.password)
-    })
-    
-    confirmpassword: string
-}
