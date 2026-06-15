@@ -18,12 +18,12 @@ export class UserController {
         private readonly userService: UserService
     ) { }
 
-    @Auth([RoleEnum.admin, RoleEnum.user])
-    @Get()
-    profile(@GetUser() user: UserDocument): { message: string, data: { user: UserDocument } } {
-        console.log({ user });
-        return { message: "done", data: { user } }
-    }
+    // @Auth([RoleEnum.admin, RoleEnum.user])
+    // @Get()
+    // profile(@GetUser() user: UserDocument): { message: string, data: { user: UserDocument } } {
+    //     console.log({ user });
+    //     return { message: "done", data: { user } }
+    // }
 
     // 2️⃣ [GET ALL USERS] تم تحديد صلاحية الـ Admin لها فقط عشان الـ NestJS يفرق بينها وبين الـ Profile
     @Auth([RoleEnum.admin])
