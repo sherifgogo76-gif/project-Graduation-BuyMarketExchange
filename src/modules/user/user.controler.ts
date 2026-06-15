@@ -109,6 +109,28 @@ export class UserController {
         return successResponse();
     }
 
+    // GET ALL USERS
+  @Get()
+  async findAll(): Promise<IResponse> {
+    const users = await this.userService.findAll();
+
+    return successResponse({
+      data: { users }
+    });
+  }
+
+  // GET ONE USER
+  @Get(':userId')
+  async findOne(
+    @Param() params: UpdateParameDto, 
+  ): Promise<IResponse> {
+    const user = await this.userService.findOne(params.userId);
+
+    return successResponse({
+      data: { user }
+    });
+  }
+
 
 
 
