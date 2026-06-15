@@ -14,9 +14,9 @@ export class UserService {
         private readonly userRepository: UserRepository
     ) { }
 
-    profile() {
-        return "Done"
-    }
+    // profile() {
+    //     return "Done"
+    // }
 
 
     async profileimage(
