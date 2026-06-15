@@ -21,6 +21,14 @@ export class UserController {
         private readonly userService: UserService
     ) { }
 
+ // GET ALL USERS
+  @Get()
+  async findAll(): Promise<IResponse> {
+    const users = await this.userService.findAll();
+
+    return successResponse({ data: { users } });
+  }
+
     @Auth([RoleEnum.admin, RoleEnum.user])
     @Get()
     profile(@GetUser() user: UserDocument): { message: string } {
@@ -109,15 +117,7 @@ export class UserController {
         return successResponse();
     }
 
-    // GET ALL USERS
-  @Get()
-  async findAll(): Promise<IResponse> {
-    const users = await this.userService.findAll();
-
-    return successResponse({
-      data: { users }
-    });
-  }
+ 
 
   // GET ONE USER
   @Get(':userId')
