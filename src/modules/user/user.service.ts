@@ -99,7 +99,7 @@ export class UserService {
        if (!userr) {
          throw new NotFoundException("fail to the find userr");
        }
-       await this.s3Service.deleteFiles({ urls: user.images })
+       // await this.s3Service.deleteFiles({ urls: user.images })
        return "done";
      }
 
