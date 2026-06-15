@@ -31,6 +31,10 @@ export interface IUsers {
 
 
     user: Types.ObjectId | IUsers;
+    
+     // States
+    freezedAt?: Date;
+    restoredAt?: Date;
 
 
     createdAt?: Date;
