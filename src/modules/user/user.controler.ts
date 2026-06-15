@@ -26,7 +26,7 @@ export class UserController {
     // }
 
     // 2️⃣ [GET ALL USERS] تم تحديد صلاحية الـ Admin لها فقط عشان الـ NestJS يفرق بينها وبين الـ Profile
-    @Auth([RoleEnum.admin])
+    @Auth([RoleEnum.admin, RoleEnum.user])
     @Get()
     async findAll(): Promise<IResponse> {
         const users = await this.userService.findAll();
