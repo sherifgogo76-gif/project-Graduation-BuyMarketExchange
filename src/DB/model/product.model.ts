@@ -15,7 +15,7 @@ export class Product implements IProduct {
     @Prop({ type: String, required: false, minlength: 2, maxlength: 50 })
     slug: string;
 
-    @Prop({ type: String, maxlength: 300 })
+    @Prop({ type: String, maxlength: 1000 })
     description: string;
 
     @Prop({ type: Number, required: true })
