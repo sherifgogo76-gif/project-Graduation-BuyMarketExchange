@@ -80,9 +80,9 @@ export class AiService {
       // Validation الوصف
       const words = data.description?.trim().split(/\s+/) || [];
 
-      if (words.length < 25) {
+      if (words.length < 10) {
         throw new BadRequestException(
-          'Description must contain at least 25 words',
+          'Description must contain at least 10 words',
         );
       }
 
