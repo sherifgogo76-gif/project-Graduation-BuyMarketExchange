@@ -105,4 +105,26 @@ export class ReportsController {
 
   }
 
+  // GET ALL REPORTS
+  @Get()
+  async findAll(): Promise<IResponse> {
+    const reports = await this.reportService.findAll();
+
+    return successResponse({
+      data: { reports }
+    });
+  }
+
+  // GET ONE REPORT
+  @Get(':reportId')
+  async findOne(
+    @Param() params: UpdateParameDto,
+  ): Promise<IResponse> {
+    const report = await this.reportService.findOne(params.reportId);
+
+    return successResponse({
+      data: { report }
+    });
+  }
+
 }
