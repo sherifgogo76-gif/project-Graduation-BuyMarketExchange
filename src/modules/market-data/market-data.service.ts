@@ -135,4 +135,13 @@ export class MarketDataService {
 
     return "done";
   }
+  // GET ALL MARKET DATA
+  async findAll() {
+    return (await this.marketDataRepository.find({ filter: { paranoid: false } })) as MarketDataDocument[];
+  }
+
+  // GET ONE MARKET DATA
+  findOne(id: Types.ObjectId) {
+    return this.marketDataRepository.findOne({ filter: { _id: id } });
+  }
 }
