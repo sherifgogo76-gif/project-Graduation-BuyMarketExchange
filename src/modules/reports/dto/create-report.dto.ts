@@ -1,6 +1,7 @@
-import { IsMongoId, IsOptional, IsString, Length } from "class-validator";
+
+import { IsMongoId, IsOptional, IsString, Length, IsEnum } from "class-validator";
 import { Types } from "mongoose";
-import { IReports } from "src/common";
+import { IReports, StatusEnum } from "src/common"; 
 
 export class CreateReportDto implements Partial<IReports> {
 
@@ -10,5 +11,9 @@ export class CreateReportDto implements Partial<IReports> {
     @Length(3, 200)
     @IsString()
     reason: string;
+
+    @IsOptional()
+    @IsEnum(StatusEnum, {  message: 'status must be a valid enum value (PENDING, APPROVED, REJECTED)',   })
+    status?: StatusEnum;
 
 }
