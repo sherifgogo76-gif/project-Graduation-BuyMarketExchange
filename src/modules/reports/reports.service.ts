@@ -140,9 +140,15 @@ export class ReportsService {
 
 
 
-  // findAll() {
-  //   return `This action returns all reports`;
-  // }
+  // GET ALL REPORTS
+  async findAll() {
+    return (await this.reportRepository.find({ filter: { paranoid: false } })) as ReportDocument[];
+  }
+
+  // GET ONE REPORT
+  findOne(id: Types.ObjectId) {
+    return this.reportRepository.findOne({ filter: { _id: id } });
+  }
 
 
 }
