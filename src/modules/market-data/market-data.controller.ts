@@ -84,4 +84,25 @@ export class MarketDataController {
     return successResponse();
 
   }
+  // GET ALL MARKET DATA
+  @Get()
+  async findAll(): Promise<IResponse> {
+    const marketData = await this.marketDataService.findAll();
+
+    return successResponse({
+      data: { marketData }
+    });
+  }
+
+  // GET ONE MARKET DATA
+  @Get(':marketDataId')
+  async findOne(
+    @Param() params: UpdateParameDto,
+  ): Promise<IResponse> {
+    const marketData = await this.marketDataService.findOne(params.marketDataId);
+
+    return successResponse({
+      data: { marketData }
+    });
+  }
 }
