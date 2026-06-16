@@ -108,7 +108,7 @@ export class ReportsController {
   // GET ALL REPORTS
   @Get()
   async findAll(): Promise<IResponse> {
-    const reports = await this.reportService.findAll();
+    const reports = await this.reportsService..findAll();
 
     return successResponse({
       data: { reports }
@@ -120,7 +120,7 @@ export class ReportsController {
   async findOne(
     @Param() params: UpdateParameDto,
   ): Promise<IResponse> {
-    const report = await this.reportService.findOne(params.reportId);
+    const report = await this.reportsService..findOne(params.reportId);
 
     return successResponse({
       data: { report }
