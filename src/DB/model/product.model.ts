@@ -55,6 +55,36 @@ export class Product implements IProduct {
 export type ProductDocument = HydratedDocument<Product>
 export const productSchema = SchemaFactory.createForClass(Product)
 
+// 1. تظبيط الداتا لما تتحول لـ JSON (وده الأساسي للـ APIs)
+productSchema.set('toJSON', {
+  transform: (doc, ret) => {
+    const S3_BASE_URL = 'https://s3mainbucketcycle44node-sherif.s3.us-east-1.amazonaws.com/';
+    if (ret.images && Array.isArray(ret.images)) {
+      ret.images = ret.images.map(imagePath => 
+        imagePath.startsWith('http') ? imagePath : `${S3_BASE_URL}${imagePath}`
+      );
+    }
+    return ret;
+  }
+});
+
+// 2. تظبيط الداتا لما تتحول لـ Object (زيادة أمان عشان لو عملت create لمنتج جديد يرجع برابط كامل فوراً)
+productSchema.set('toObject', {
+  transform: (doc, ret) => {
+    const S3_BASE_URL = 'https://s3mainbucketcycle44node-sherif.s3.us-east-1.amazonaws.com/';
+    if (ret.images && Array.isArray(ret.images)) {
+      ret.images = ret.images.map(imagePath => 
+        imagePath.startsWith('http') ? imagePath : `${S3_BASE_URL}${imagePath}`
+      );
+    }
+    return ret;
+  }
+});
+
+
+
+
+
 // ✅ Hook لتوليد slug من الاسم
 productSchema.pre("save", function (next) {
     if (this.isModified("name")) {
