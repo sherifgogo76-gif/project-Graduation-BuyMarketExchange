@@ -186,7 +186,12 @@ export class TokenService {
 
 
         } catch (error) {
-            throw error instanceof Error ? error : new InternalServerErrorException("Something went wrong!");
+            // throw error instanceof Error ? error : new InternalServerErrorException("Something went wrong!");
+            console.error("Token verification failed:", error);
+            if (error instanceof BadRequestException || error instanceof UnauthorizedException) {
+                throw error;
+            }
+            throw new UnauthorizedException(error instanceof Error ? error.message : "Invalid token");
 
         }
     };
