@@ -140,10 +140,15 @@ export class TokenService {
 
         try {
 
-            const [bearer, token] = authorization.split(" ");
-            if (!bearer || !token) {
-                throw new UnauthorizedException("Invalid token format");
-            }
+            // const [bearer, token] = authorization.split(" ");
+            // if (!bearer || !token) {
+            //     throw new UnauthorizedException("Invalid token format");
+            // }
+
+            // لو باعت التوكن حاف، الـ bearer هيبقى 'user' والـ token هياخد القيمة كلها
+           const isCleanToken = !authorization.includes(" ");
+          const bearer = isCleanToken ? 'user' : authorization.split(" ")[0];
+          const token = isCleanToken ? authorization.trim() : authorization.split(" ")[1];
 
             const signatures = await this.getsignatures(bearer as signatureLevelEnum);
             const decoded = await this.verifytoken({
