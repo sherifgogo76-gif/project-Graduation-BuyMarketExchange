@@ -4,6 +4,10 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  
+  app.useStaticAssets(join(__dirname, '..', 'BuyMarketExchange'), {
+    prefix: '/BuyMarketExchange/',
+  });
 
   console.log("DB_URI =", process.env.DB_URI);
 
