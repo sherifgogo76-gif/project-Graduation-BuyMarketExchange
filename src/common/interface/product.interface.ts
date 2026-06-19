@@ -18,6 +18,9 @@ export interface IProduct {
     discountprice?: number;
     saleprice: number;
     condition?: string;
+    
+    // AI Result
+    aiResult?: any;
 
 
     assetFolderId: string;
