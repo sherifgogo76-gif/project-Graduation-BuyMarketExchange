@@ -146,28 +146,13 @@ export class ProductService {
         ]
       });
   
-    //   // ✅ تحديث حالة المنتج
-    //   await this.productRepository.updateOne({
-    //     filter: { _id: createdProduct._id },
-    //     update: { condition: aiResult.condition }
-    //   });
-    // }
-
-
-      // ✅ تحديث حالة المنتج وحفظ نتيجة الـ AI في قاعدة البيانات
-      const updatedProduct = await this.productRepository.findOneAndUpdate({
+      // ✅ تحديث حالة المنتج
+      await this.productRepository.updateOne({
         filter: { _id: createdProduct._id },
-        update: { 
-          condition: aiResult.condition,
-          aiResult: aiResult
-        },
-        options: { new: true }
+        update: { condition: aiResult.condition }
       });
-      if (updatedProduct) {
-        return { product: updatedProduct as any, aiResult };
-      }
     }
-  
+
     // ✅ إعادة المنتج والنتيجة من AI
     return { product: createdProduct, aiResult };
   }
