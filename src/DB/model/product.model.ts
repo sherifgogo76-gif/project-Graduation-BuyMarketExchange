@@ -32,6 +32,9 @@ export class Product implements IProduct {
 
     @Prop({ type: String, required: false })
     condition: string;
+    
+    @Prop({ type: Object, required: false })
+    aiResult?: any;
 
     @Prop({ type: Types.ObjectId, ref: "Category", required: false })
     category: Types.ObjectId;
